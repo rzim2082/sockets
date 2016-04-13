@@ -10,11 +10,11 @@ socket.on('connect', function(){
 socket.on('message', function(message){
 	console.log('New message:');
 	console.log(message.text);
-	//var messageToHTML = '<h1>' + message.text + '</h1>';
-	//document.getElementByClass('received-message').innerHTML += messageToHTML;
 	
+	var timestampMoment = moment.utc(message.timestamp);
 
-	jQuery('.received-message').append('<p>' + message.text + '</p><p>' + message.timestamp + '</p>');
+
+	jQuery('.received-message').append('<p>' + timestampMoment.local().format('h:mm a') + ': <strong>' + message.text + '</strong></p>');
 });
 
 
@@ -27,9 +27,11 @@ $form.on('submit', function(event){
 	event.preventDefault(); //when you dont want to refresh the entire page
 
 	var $message = $form.find('input[name=message]');
+	
 
 	socket.emit('message', {
 		text: $message.val()
+		
 		
 	});
 	

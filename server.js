@@ -15,17 +15,18 @@ io.on('connection', function(socket){
 	console.log('User connected via socket.io!');
 
 	socket.on('message', function(message){
-		message.timestamp = now.format('MMM Do YYYY h:mm a');
-		console.log('Message received: ' + message.text + message.timestamp);
+		message.timestamp = moment().valueOf();
+		console.log('Message received: ' + message.text + ' ' + message.timestamp);
 
 		//socket.broadcast.emit('message', message); //this will emit to everyone but you
+		
 		io.emit('message', message);
 	});
 
 	
 	socket.emit('message', {
 		text: 'Welcome to the chat application!',
-		timestamp: now.format('MMM Do YYYY h:mm a')
+		timestamp: moment().valueOf()
 	});
 
 
