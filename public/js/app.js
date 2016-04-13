@@ -3,11 +3,18 @@ var name = getQueryVariable('name');
 var room = getQueryVariable('room');
 
 
+jQuery('.room-name').text(room);
+
 socket.on('connect', function(){
 	console.log('Connected to socket.io server!');
 	/*socket.emit('message', {
 		text: name + ' joined room: ' + room
 	});*/
+	socket.emit('joinRoom', {
+		name: name,
+		room: room
+	});
+	
 });
 
 
